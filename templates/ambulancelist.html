@@ -1,0 +1,99 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+
+			<!-- Main Wrapper -->
+            <div class="main-wrapper">
+		
+               
+                
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Ambulance Services</li>
+                                    </ol>
+                                </nav>
+                                
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- /Breadcrumb -->
+                
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container-fluid">
+    
+                        <div class="row">
+                           
+                            
+                            <div class="col-md-12 col-lg-8 col-xl-9">
+    
+                                <!-- Doctor Widget -->
+                                {% for i in ambulance %}
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="doctor-widget">
+                                                <div class="doc-info-left">
+                                                    <div class="doctor-img">
+                                                        <a href="doctor-profile.html">
+                                                            <img src="{{ i.pic.url }}" class="img-fluid" alt="User Image">
+                                                        </a>
+                                                    </div>
+                                                    <div class="doc-info-cont">
+                                                        <h4 class="doc-name"><a href="doctor-profile.html">{{ i.name }}</a></h4>
+                                                        
+                                        
+                                                        <div class="clinic-details">
+                                                            <p></p>
+                                                            <p class="doc-location"><i class="fas fa-map-marker-alt"></i>  {{ i.address }},<span> {{ i.city }}</span><span>, {{ i.state }}</span><span> ,{{ i.zipcode }}</span></p>
+                                                            <p class="doc-location"><i class="fa fa-phone-square"></i>  {{ i.mobile }}</p>
+                                        
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="doc-info-right">
+                                                    <div class="clini-infos">
+                                                        <ul>
+                                
+                                                            <li><i class="fas fa-map-marker-alt"></i> {{ i.address }} <span>,{{ i.city }},</span> <span>{{ i.state }}</span></li>
+                            
+                                                        </ul>
+                                                    </div>
+                                                  
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                                <!-- /Doctor Widget -->
+    
+                               
+    
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                </div>		
+                <!-- /Page Content -->
+       
+               
+    
+            </div>
+            <!-- /Main Wrapper -->
+	  
+
+		{% endblock %}
+		{% include 'footer.html' %}

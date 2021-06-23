@@ -1,0 +1,290 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>DocTalk -Partener Dashboard</title>
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'dashboard/assets/img/favicon.png' %}">
+
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/bootstrap.min.css' %}">
+
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/font-awesome.min.css' %}">
+		
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/feathericon.min.css' %}">
+		
+		<link rel="stylesheet" href="{% static 'dashboard/assets/plugins/morris/morris.css' %}">
+		
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/style.css' %}">
+
+    </head>
+    <body>
+	
+        <div class="main-wrapper">
+		
+            <div class="header">
+			
+                <div class="header-left">
+                    <a href="/" class="logo">
+						<img src="{% static 'dashboard/assets/img/doctalk_logo.png' %}" alt="Logo">
+					</a>
+					<a href="/" class="logo logo-small">
+						<img src="{% static 'dashboard/assets/img/doctalk_logo.png' %}" alt="Logo" width="30" height="30">
+					</a>
+                </div>
+				
+				<a href="javascript:void(0);" id="toggle_btn">
+					<i class="fe fe-text-align-left"></i>
+				</a>
+				
+				
+				<a class="mobile_btn" id="mobile_btn">
+					<i class="fa fa-bars"></i>
+				</a>
+
+				<ul class="nav user-menu">
+					
+					<!-- User Menu -->
+					<li class="nav-item dropdown has-arrow">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+							{% if profile.pic %}
+							<span class="user-img"><img class="rounded-circle" src="{{profile.pic.url}}" width="31" alt="Profile Pic"></span>
+							{% else %}
+							<span class="user-img"><i class="fa fa-user"></i></span>
+							{% endif %}
+						</a>
+						<div class="dropdown-menu">
+							<div class="user-header">
+								<div class="avatar avatar-sm">
+									{% if profile.pic %}
+									<img src="{{profile.pic.url}}" alt="User Image" class="avatar-img rounded-circle">
+									{% else %}
+									<i class="fa fa-user"></i>
+									{% endif %}
+								</div>
+								<div class="user-text">
+									<h6>{{ user.username }}</h6>
+									<p>Partener</p>
+								</div>
+							</div>
+							<a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+						</div>
+					</li>
+					<!-- /User Menu -->
+					
+				</ul>
+				<!-- /Header Right Menu -->
+				
+            </div>
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+					<div id="sidebar-menu" class="sidebar-menu">
+						<ul>
+							<li class="menu-title"> 
+								<span>Main</span>
+							</li>
+							<li> 
+								<a href="{% url 'dashboard' %}"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'appointments' %}"><i class="fe fe-layout"></i> <span>Appointments</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'hospitals' %}"><i class="fe fe-users"></i> <span>Hospitals</span></a>
+							</li>
+							<li class="active"> 
+								<a href="{% url 'doctor' %}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'ambulance' %}"><i class="fe fe-user"></i> <span>Ambulance</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'medical-store' %}"><i class="fe fe-star-o"></i> <span>Medical Stores</span></a>
+							</li>
+						</ul>
+					</div>
+                </div>
+            </div>
+			<!-- /Sidebar -->
+			
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+				
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">Doctors</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+									<li class="breadcrumb-item active">Doctors</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+
+					<div class="container">
+						{% if doctor %}
+						<form action="{% url 'edit-doctor' id=doctor.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						{% else %}
+						<form action="{% url 'doctor' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						{% endif %}
+							<div class="row">
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="text" class="form-control" name="name" placeholder="Name Of Doctor" value="{{doctor.name}}">
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<select id="specialization" class="form-control" name="specialization">
+									{% if doctor.specialization == 'Cardiologists' %}
+									<option value="Cardiologists" selected>Cardiologists</option>
+									{% else %}
+									<option value="Cardiologists">Cardiologists</option>
+									{% endif %}
+									{% if doctor.specialization == 'Dermatologists' %}
+									<option value="Dermatologists" selected>Dermatologists</option>
+									{% else %}
+									<option value="Dermatologists">Dermatologists</option>
+									{% endif %}
+									{% if doctor.specialization == 'Neurologists' %}
+									<option value="Neurologists" selected>Neurologists</option>
+									{% else %}
+									<option value="Neurologists">Neurologists</option>
+									{% endif %}
+									{% if doctor.specialization == 'Gynecologists' %}
+									<option value="Gynecologists" selected>Gynecologists</option>
+									{% else %}
+									<option value="Gynecologists">Gynecologists</option>
+									{% endif %}
+									{% if doctor.specialization == 'General Surgeons' %}
+									<option value="General Surgeons" selected>General Surgeons</option>
+									{% else %}
+									<option value="General Surgeons">General Surgeons</option>
+									{% endif %}
+									{% if doctor.specialization == 'Psychiatrists' %}
+									<option value="Psychiatrists" selected>Psychiatrists</option>
+									{% else %}
+									<option value="Psychiatrists">Psychiatrists</option>
+									{% endif %}
+									{% if doctor.specialization == 'Gynecologists' %}
+									<option value="Gynecologists" selected>Rheumatologists</option>
+									{% else %}
+									<option value="Gynecologists">Rheumatologists</option>
+									{% endif %}
+									</select>
+									<label for="specialization"  style="padding: 10px;">Specialization</label>
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="text" class="form-control" name="address" placeholder="Address" value="{{doctor.address}}">
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="text" class="form-control" name="city" placeholder="City" value="{{doctor.city}}">
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="text" class="form-control" name="state" placeholder="State" value="{{doctor.state}}">
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="text" class="form-control" name="zipcode" placeholder="Zipcode" value="{{doctor.zipcode}}">
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="text" class="form-control" name="mobile" placeholder="Mobile" value="{{doctor.mobile}}">
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="text" class="form-control" name="email" placeholder="Email" value="{{doctor.email}}">
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									<input type="file" class="form-control" name="pic">
+									{% if doctor %}
+									<label style="padding: 10px;">Hospital Image/Logo: <a href="{{doctor.pic.url}}">View</a></label>
+									{% else %}
+									<label style="padding: 10px;">Hospital Image/Logo</label>
+									{% endif %}
+								</div>
+								<div class="col-lg-3 col-md-6" style="padding: 10px;">
+									{% if doctor %}
+									<input type="submit" class="btn btn-success" value="UPDATE">
+									{% else %}
+									<input type="submit" class="btn btn-success" value="ADD">
+									{% endif %}
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+					
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Specialization</th>
+													<th>Address</th>
+													<th>City</th>
+													<th>State</th>
+													<th>Zipcode</th>
+													<th>Mobile</th>
+													<th>Email</th>
+													<th>Edit</th>
+													<th>Delete</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for doctor in doctors %}
+												<tr>
+													<td>
+														<h2 class="table-avatar">
+															<a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{doctor.pic.url}}" alt="Hospital Image"></a>
+															<a>{{doctor.name}}</a>
+														</h2>
+													</td>
+													<td>{{doctor.specialization}}</td>
+													<td>{{doctor.address}}</td>
+													<td>{{doctor.city}}</td>
+													<td>{{doctor.state}}</td>
+													<td>{{doctor.zipcode}}</td>
+													<td>{{doctor.mobile}}</td>
+													<td>{{doctor.email}}</td>
+													<td><a href="{% url 'edit-doctor' id=doctor.id %}">Edit</a></td>
+													<td><a href="{% url 'delete-doctor' id=doctor.id %}">Delete</a></td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- /Recent Orders -->
+							
+						</div>
+					</div>
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+		
+        </div>
+		<!-- /Main Wrapper -->
+		
+
+        <script src="{% static 'dashboard/assets/js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'dashboard/assets/js/popper.min.js' %}"></script>
+        <script src="{% static 'dashboard/assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'dashboard/assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>	
+		<script src="{% static 'dashboard/assets/plugins/raphael/raphael.min.js' %}"></script>    
+		<script src="{% static 'dashboard/assets/plugins/morris/morris.min.js' %}"></script>  
+		<script src="{% static 'dashboard/assets/js/chart.morris.js' %}"></script>
+		<script src="{% static 'dashboard/assets/js/script.js' %}"></script>
+		
+    </body>
+</html>

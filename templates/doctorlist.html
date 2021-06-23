@@ -1,0 +1,100 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+
+			<!-- Main Wrapper -->
+            <div class="main-wrapper">
+		
+               
+                
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Doctors</li>
+                                    </ol>
+                                </nav>
+                               
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- /Breadcrumb -->
+                
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container-fluid">
+    
+                        <div class="row">
+                           
+                            
+                            <div class="col-md-12 col-lg-8 col-xl-9">
+    
+                                <!-- Doctor Widget -->
+                                {% for i in doctor %}
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="doctor-widget">
+                                                <div class="doc-info-left">
+                                                    <div class="doctor-img">
+                                                        <a href="doctor-profile.html">
+                                                            <img src="{{ i.pic.url }}" class="img-fluid" alt="User Image">
+                                                        </a>
+                                                    </div>
+                                                    <div class="doc-info-cont">
+                                                        <h4 class="doc-name"><a href="{% url 'doctor-profile' i.id %}">{{ i.name }}</a></h4>
+                                                        <p class="doc-speciality">{{ i.specialization }}</p>
+                                        
+                                                        <div class="clinic-details">
+                                                            <p></p>
+                                                            <p class="doc-location"><i class="fas fa-map-marker-alt"></i>  {{ i.address }}, <span>{{ i.city }}</span><span>, {{ i.state }}</span>,{{ i.zipcode }}<span></span></p>
+                                                       
+                                                            <p class="doc-location"><i class="fa fa-envelope-square"></i>  {{ i.email }}</p>
+                                        
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="doc-info-right">
+                                                    <div class="clini-infos">
+                                                        <ul>
+                                                            <li><i class="fa fa-envelope-square"></i> {{ i.email }}</li>
+                                                            <li><i class="fas fa-map-marker-alt"></i> {{ i.address }}, <span>{{ i.city }},</span> <span>{{ i.state }}</span></li>
+                                                          
+                                                        </ul>
+                                                    </div>
+                                                    <div class="clinic-booking">
+                                                        
+                                                        <a class="apt-btn" href="{% url 'set-doctor-appointment' id=i.id %}">Book Appointment</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                                <!-- /Doctor Widget -->
+    
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                </div>		
+                <!-- /Page Content -->
+       
+               
+    
+            </div>
+            <!-- /Main Wrapper -->
+	  
+
+		{% endblock %}
+		{% include 'footer.html' %}

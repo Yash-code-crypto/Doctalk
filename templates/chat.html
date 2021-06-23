@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en">
+	
+<head >
+		<meta http-equiv="refresh" content="30">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		<title>DocTalk</title>
+		
+		<link type="image/x-icon" href="{% static 'assets/img/favicon.png' %}" rel="icon">
+
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+		
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+
+		<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+		
+	
+	</head>
+	<body class="chat-page">
+
+				<div class="container" style="padding-top: 50px;">
+					{% if not password %}
+					<center><h3>Text Message Consultancy - Powered By DocTalk</h3></center>
+					<form action="{% url 'text-message' appointment_id=appointment.id partener_id=partener.id patient_id=patient.id %}" method="POST">{% csrf_token %}
+						<input type="password" name="key" class="form-control" placeholder="Enter Secret Key" style="margin-top: 20px;">
+						<input type="submit" class="btn btn-warning" value="Submit" style="margin-top: 20px;">
+					</form>
+						{% else %}
+						<div class="chat-window">
+								<!-- Chat Right -->
+								<div class="chat-cont-right">
+									<div class="chat-header">
+										<div class="media">
+											<div class="media-body">
+												{% if user.id == patient.id %}
+												<div class="user-name">{{partener.username}}</div>
+												{% else %}
+												<div class="user-name">{{patient.username}}</div>
+												{% endif %}
+											</div>
+										</div>
+										<div class="chat-options">
+											<h3>Powered By DocTalk</h3>
+										</div>
+									</div>
+									
+									<div class="chat-body">
+										<div class="chat-scroll">
+											<ul class="list-unstyled">
+												{% for message in messages %}
+												{% if user.id == message.sender.id %}
+												<li class="media sent">
+													<div class="media-body">
+														<div class="msg-box">
+															<div>
+																<p>{{message.text}}</p>
+															</div>
+														</div>
+													</div>
+												</li>
+												{% else %}
+												<li class="media received">
+													<div class="media-body">
+														<div class="msg-box">
+															<div>
+																<p>{{message.text}}</p>
+															</div>
+														</div>
+													</div>
+												</li>
+												{% endif %}
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+									<form action="{% url 'send-message' %}" method="POST">{% csrf_token %}
+									<div class="chat-footer">
+										<div class="input-group">
+											<input type="hidden" value="{{user.id}}" name="sender">
+											{% if user.id == patient.id %}
+											<input type="hidden" value="{{partener.id}}" name="receiver">
+											<input type="hidden" value="{{partener.id}}" name="partener">
+											<input type="hidden" value="{{user.id}}" name="patient">
+											{% else %}
+											<input type="hidden" value="{{patient.id}}" name="receiver">
+											<input type="hidden" value="{{user.id}}" name="partener">
+											<input type="hidden" value="{{patient.id}}" name="patient">
+											{% endif %}
+											<input type="hidden" value="{{appointment.id}}" name="appointment">
+											<input type="text" class="input-msg-send form-control" placeholder="Type something" name="text">
+											<div class="input-group-append">
+												<button type="submit" class="btn msg-send-btn"><i class="fab fa-telegram-plane"></i></button>
+											</div>
+										</div>
+									</div>
+									</form>
+								</div>
+								<!-- /Chat Right -->
+								
+							</div>
+							{% endif%}
+						</div>
+
+   
+			
+	  
+		<!-- jQuery -->
+		<script src="assets/js/jquery.min.js"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="assets/js/popper.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		
+		<!-- Custom JS -->
+		<script src="assets/js/script.js"></script>
+		
+	</body>
+
+<!-- doccure/chat.html  30 Nov 2019 04:12:18 GMT -->
+</html>

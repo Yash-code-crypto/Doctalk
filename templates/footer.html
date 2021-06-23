@@ -1,0 +1,144 @@
+{% load static %}
+<html>
+<head></head>
+<body>
+
+<footer class="footer">
+				
+    <div class="footer-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget footer-about">
+                        <div class="footer-logo">
+                            <img src="{% static 'assets/img/doctalk_logo.png' %}" alt="logo" width=300 height=50>
+                        </div>
+                        <div class="footer-about-content">
+                            <p>Providing All medical Services at your ease.</p>
+                            <div class="social-icon">
+                                <ul>
+                                    <li>
+                                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                
+                    <div class="footer-widget footer-menu">
+                        <h2 class="footer-title">For Patients</h2>
+                        <ul>
+                            <li><a href="{% url 'signin' %}"><i class="fas fa-angle-double-right"></i>Login</a></li>
+                            <li><a href="{% url 'user-signup' %}"><i class="fas fa-angle-double-right"></i>Signup</a></li>
+                            <li><a href="{% url 'hospital_list' %}"><i class="fas fa-angle-double-right"></i>Hospitals</a></li>
+                            <li><a href="{% url 'medical_list' %}"><i class="fas fa-angle-double-right"></i>Medical Stores</a></li>
+                            <li><a href="{% url 'doctor_list' %}"><i class="fas fa-angle-double-right"></i>Doctors</a></li>
+                            <li><a href="{% url 'ambulance_list' %}"><i class="fas fa-angle-double-right"></i>Ambulance Services</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+
+                    <div class="footer-widget footer-menu">
+                        <h2 class="footer-title">Services</h2>
+                        <ul>
+                            <li><a href="{% url 'chatbot' %}"><i class="fas fa-angle-double-right"></i>Message Us</a></li>
+                            <li><a href="{% url 'covid-prediction' %}"><i class="fas fa-angle-double-right"></i>Covid-19 Monitor</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                
+                    <div class="footer-widget footer-menu">
+                        <h2 class="footer-title">For Parteners</h2>
+                        <ul>
+                            <li><a href="{% url 'signin' %}"><i class="fas fa-angle-double-right"></i>Login</a></li>
+                            <li><a href="{% url 'partener-signup' %}"><i class="fas fa-angle-double-right"></i>Signup</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                
+                    <div class="footer-widget footer-contact">
+                        <h2 class="footer-title">Contact Us</h2>
+                        <div class="footer-contact-info">
+                            <div class="footer-address">
+                                <span><i class="fas fa-map-marker-alt"></i></span>
+                                <p>Government College Of Engineering,<br> Amravati</p>
+                            </div>
+                            <p>
+                                <i class="fas fa-phone-alt"></i>
+                                +91 9156441201
+                            </p>
+                            <p class="mb-0">
+                                <i class="fas fa-envelope"></i>
+                                doctalk2021.gladiators@gmail.com
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="container-fluid">
+        
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="copyright-text">
+                            <p class="mb-0">Developed By Gladiators</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                    
+                        <div class="copyright-menu">
+                            <ul class="policy-menu">
+                                <li><a>&copy Gladiators 2021</a></li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</footer>
+
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/js/slick.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+      
+  </body>
+
+<!-- doccure/  30 Nov 2019 04:11:53 GMT -->
+</html>

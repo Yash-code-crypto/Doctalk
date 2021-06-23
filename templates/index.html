@@ -1,0 +1,256 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+		<div class="main-wrapper">
+			<section class="section section-search">
+				<div class="container-fluid">
+					<div class="banner-wrapper">
+						<div class="banner-header text-center">
+							<h1>Search Doctor,  Make an Appointment</h1>
+							<p>Discover the Best doctors, Clinic & hospital the city nearest to you.</p>
+						</div>
+                         
+						<div class="search-box">
+							
+							<form action="{% url 'search_list' %}" method="GET">
+								{% csrf_token %}
+								<div class="form-group search-location">
+									{% if location %}
+									<input type="text" class="form-control" value="Current Location: {{location}}" readonly>
+									{% else %}
+									<input type="text" class="form-control" value="No Location" readonly>
+									{% endif %}
+								</div>
+								
+								<div class="form-group search-info">
+									<input type="text" class="form-control" name="query" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc">
+									<span class="form-text">Ex : City, Hospital, Clinic, Medicine Store, Ambulance</span>
+								</div>
+								<button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
+							</form>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- /Home Banner -->
+			  
+			<!-- Clinic and Specialities -->
+			
+			<section class="section section-specialities">
+				<div class="container-fluid">
+					<div class="section-header text-center">
+						<h2>Hospital Nears You</h2>
+						<p class="sub-title"></p>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-9">
+							<div class="doctor-slider slider">
+								{% for hospital in hospitals %}
+								<div class="profile-widget">
+									<div class="doc-img">
+											<img alt="User Image" src="{{hospital.pic.url}}"  height=150>
+									</div>
+									<div class="pro-content">
+										<a href="{% url 'hospital-profile' hospital.id %}">
+										<h3 class="title">
+											{{hospital.name}}
+											<i class="fas fa-check-circle verified"></i>
+										</h3>
+										</a>
+										<ul class="available-info">
+											<li>
+												<i class="fas fa-map-marker-alt"></i> {{hospital.address}}
+											</li>
+										</ul>
+										<div class="row row-sm">
+											<div class="col-12">
+												<a href="{% url 'set-hospital-appointment' id=hospital.id %}" class="btn book-btn">Make Appointment</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+						</div>
+						</div>
+					</div>
+				</div>   
+			</section>
+			
+	
+
+			<section class="section section-specialities">
+				<div class="container-fluid">
+					<div class="section-header text-center">
+						<h2>Medical Stores Near You</h2>
+						<p class="sub-title"></p>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-9">
+							<div class="doctor-slider slider">
+								{% for medical in medicals %}
+								<div class="profile-widget">
+									<div class="doc-img">
+											<img alt="User Image" src="{{medical.pic.url}}"  height=150>
+									</div>
+									<div class="pro-content">
+										<h3 class="title">
+											{{medical.name}}
+											<i class="fas fa-check-circle verified"></i>
+										</h3>
+									
+										<ul class="available-info">
+											<li>
+												<i class="fas fa-map-marker-alt"></i> {{medical.address}}
+											</li>
+										</ul>
+										
+									</div>
+								</div>
+								{% endfor %}
+						</div>
+						</div>
+					</div>
+				</div>   
+			</section>
+
+			<section class="section section-specialities">
+				<div class="container-fluid">
+					<div class="section-header text-center">
+						<h2>Ambulance Services Near You</h2>
+						<p class="sub-title"></p>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-9">
+							<div class="doctor-slider slider">
+								{% for ambulance in ambulances %}
+								<div class="profile-widget">
+									<div class="doc-img">
+											<img alt="User Image" src="{{ambulance.pic.url}}"  height=150>
+									</div>
+									<div class="pro-content">
+										<h3 class="title">
+											{{ambulance.name}}
+											<i class="fas fa-check-circle verified"></i>
+										</h3>
+									
+										<ul class="available-info">
+											<li>
+												<p>{{ambulance.address}}</p>
+												<p>Contact: {{ambulance.mobile}}</p>
+											</li>
+										</ul>
+										
+									</div>
+								</div>
+								{% endfor %}
+						</div>
+						</div>
+					</div>
+				</div>   
+			</section>
+
+			<section class="section section-specialities">
+				<div class="container-fluid">
+					<div class="section-header text-center">
+						<h2>Doctors Near By</h2>
+						<p class="sub-title"></p>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-9">
+							<div class="doctor-slider slider">
+								{% for doctor in doctors %}
+								<div class="profile-widget">
+									<div class="doc-img">
+											<img alt="User Image" src="{{doctor.pic.url}}"  height=150>
+									</div>
+									<div class="pro-content">
+										<a href="{% url 'doctor-profile' doctor.id %}">
+										<h3 class="title">
+											{{doctor.name}}
+											<i class="fas fa-check-circle verified"></i>
+										</h3>
+										</a>
+										<p class="speciality">{{doctor.specialization}}</p>
+										<ul class="available-info">
+											<li>
+												<i class="fas fa-map-marker-alt"></i> {{doctor.address}}
+											</li>
+										</ul>
+										<div class="row row-sm">
+											<div class="col-12">
+												<a href="{% url 'set-doctor-appointment' id=doctor.id %}" class="btn book-btn">Make Appointment</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+						</div>
+						</div>
+					</div>
+				</div>   
+			</section>
+		  
+		   
+		   <!-- Availabe Features -->
+		   <section class="section section-features">
+				<div class="container">
+					<div class="section-header text-center">
+						<h2>Available Features and Services</h2>
+						<p class="sub-title"></p>
+					</div>
+							<div class="features-slider slider">
+								
+								<div class="feature-item text-center">
+									<a href="{% url 'covid-prediction' %}">
+									<img src="{% static 'assets/img/predict.png' %}" class="img-fluid" alt="Feature">
+									<p>Covid-19 Prediction</p>
+									</a>
+								</div>
+
+								<div class="feature-item text-center">
+									<a href="{% url 'chatbot' %}">
+									<img src="{% static 'assets/img/chatbot.png' %}" class="img-fluid" alt="Feature">
+									<p>ChatBot</p>
+									</a>
+								</div>
+
+								<div class="feature-item text-center">
+									<a>
+									<img src="{% static 'assets/img/call.png' %}" class="img-fluid" alt="Feature">
+									<p>24/7 Call Support</p>
+									</a>
+								</div>
+
+								<div class="feature-item text-center">
+									<a>
+									<img src="{% static 'assets/img/offline.jpg' %}" class="img-fluid" alt="Feature">
+									<p>Offline Appointment</p>
+									</a>
+								</div>
+
+								<div class="feature-item text-center">
+									<a>
+									<img src="{% static 'assets/img/textnow.png' %}" class="img-fluid" alt="Feature">
+									<p>Text Message Appointment</p>
+									</a>
+								</div>
+
+								<div class="feature-item text-center">
+									<a>
+									<img src="{% static 'assets/img/video.png' %}" class="img-fluid" alt="Feature">
+									<p>Video Call Appointment</p>
+									</a>
+								</div>
+								
+							</div>
+				</div>
+			</section>		
+			<!-- Availabe Features -->
+			
+</div>
+
+{% endblock %}
+{% include 'footer.html' %}

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en">
+	
+<head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		<title>DocTalk</title>
+		
+		<link type="image/x-icon" href="{% static 'assets/img/favicon.png' %}" rel="icon">
+
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+		
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+
+		<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+		
+	
+	</head>
+	<body>
+		<script>
+			function showPosition() {
+			  if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function (position) {
+				  var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")"
+				  var myform = document.getElementById("myform");
+				  document.getElementById("lat").value = position.coords.latitude;
+				  document.getElementById("lng").value = position.coords.longitude;
+				  myform.submit();
+				});
+			  } else {
+				alert("Sorry, your browser does not support HTML5 geolocation.");
+			  }
+			}
+		  </script>
+		  <form action="{% url 'set-location' %}" method="POST" id="myform">{% csrf_token %}
+			<input type="hidden" value="" name="lat" id="lat">
+			<input type="hidden" value="" name="lng" id="lng">
+		  </form>
+			<header class="header">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="/" class="navbar-brand logo">
+							<img src="{% static 'assets/img/doctalk_logo.png' %}" class="img-fluid" alt="Logo">
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="/" class="menu-logo">
+								<img src="{% static 'assets/img/doctalk_logo.png' %}" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						<ul class="main-nav">
+							<li class="active">
+								<a href="{% url 'index' %}">Home</a>
+							</li>
+							<li class="has-submenu">
+								<a href="{% url 'hospital_list' %}">Hospitals</a>
+							</li>	
+							<li class="has-submenu">
+								<a href="{% url 'ambulance_list' %}">Ambulance</a>
+							</li>
+							<li class="has-submenu">
+								<a href="{% url 'doctor_list' %}">Doctors</a>
+							</li>
+							<li class="has-submenu">
+								<a href="{% url 'medical_list' %}">Medical Stores</a>
+							</li>
+							<li class="login-link">
+								<a href="{% url 'signin' %}">Login / Signup</a>
+							</li>
+						</ul>		 
+					</div>	
+					{% if user.username %}	 
+					<ul class="nav header-navbar-rht main-nav">
+						{% if not location %}
+							<li class="has-submenu">
+								<a><buton class="btn btn-info" onclick="showPosition()">Get Location</buton></a>
+							</li>
+							{% endif %}
+						<li class="has-submenu" style="margin-right: 100px;">
+							<a href="#"><i class="fa fa-user"></i> <i class="fas fa-chevron-down"></i></a>
+							<ul class="submenu">
+								<li><a href="{% url 'profile' %}">Profile</a></li>
+								<li><a href="{% url 'user-appointments' %}">Appointments</a></li>
+								{% if is_partener %}
+								<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+								{% endif %}
+								<li><a href="{% url 'logout' %}"><button class="btn btn-danger">Logout</button></a></li>
+							</ul>
+						</li>
+						
+						
+						</ul>
+						{% else %}
+						<ul class="nav header-navbar-rht">
+							{% if not location %}
+							<li class="nav-item">
+								<buton class="btn btn-info" onclick="showPosition()">Get Location</buton>
+							</li>
+							{% endif %}
+						<li class="nav-item">
+							<a class="nav-link header-login" href="{% url 'user-signup' %}">Signup </a>
+						</li>
+					</ul>
+					{% endif %}
+				</nav>
+			</header>
+
+      <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/js/slick.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+      
+  </body>
+
+</html>      

@@ -1,0 +1,174 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+		
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-12 col-12">
+                    <nav aria-label="breadcrumb" class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Hospital</li>
+                        </ol>
+                    </nav>
+                    <h2 class="breadcrumb-title">{{hospital.name}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Breadcrumb -->
+    
+    <!-- Page Content -->
+    <div class="content">
+        <div class="container">
+
+            <!-- Doctor Widget -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="doctor-widget">
+                        <div class="doc-info-left">
+                            <div class="doctor-img">                            
+                               <img src="{{ hospital.pic.url }}" class="img-fluid" alt="User Image">
+                            </div>
+                            <div class="doc-info-cont">
+                                <h3>{{ hospital.name }}</h3>
+                                <p class="doc-speciality"></p>
+                               
+                                <div class="clinic-details">
+                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i>  {{ hospital.address }}, <span>{{ hospital.city }}</span><span>, {{ hospital.state }}</span>,{{ hospital.zipcode }}<span></span></p>
+                                    
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="doc-info-right">
+                            <div class="clini-infos">
+                                <ul>
+                                    <li><i class="far fa-comment"></i>{{ reviews.count }} Feedback</li>
+                                    
+                                 
+                                </ul>
+                            </div>
+                          
+                            <div class="clinic-booking">
+                                <a class="apt-btn" href="{% url 'set-hospital-appointment' id=hospital.id %}">Book Appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Doctor Widget -->
+            
+            <!-- Doctor Details Tab -->
+
+            {% for i in reviews %}
+            <div class="card">
+                <div class="card-body pt-0">
+                
+                    <!-- Tab Menu -->
+                    <nav class="user-tabs mb-4">
+                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                          
+                          
+                            <li class="nav-item">
+                                <a class="nav-link" href="#doc_reviews" data-toggle="tab">Reviews</a>
+                            </li>
+                            
+                        </ul>
+                    </nav>
+                    <!-- /Tab Menu -->
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content pt-0">
+                    
+                        
+                        
+                        
+                        <!-- Reviews Content -->
+                        <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+                        
+                            <!-- Review Listing -->
+                            <div class="widget review-listing">
+                                <ul class="comments-list">
+                                
+                                    <!-- Comment List -->
+                                    <li>
+                                        <div class="comment">
+                                            <div class="comment-body">
+                                                <div class="meta-data">
+                                                    <span class="comment-author">{{ i.user }}</span>
+                                                    <!-- <span class="comment-date">Reviewed 2 Days ago</span> -->
+                                                    
+                                                </div>
+                                                
+                                                <p class="comment-content">
+                                                    {{ i.text }}
+                                                </p>
+                                               
+                                            </div>
+                                        </div>
+                                        
+                                
+                                <!-- Show All -->
+                              
+                                <!-- /Show All -->
+                                
+                            </div>
+                            <!-- /Review Listing -->
+
+                            <!-- {% endfor %} -->
+                        
+                            <!-- Write Review -->
+                            <div class="write-review">
+                                <h4>Write a review for <strong>{{ hospital.name }}</strong></h4>
+                                
+                                <!-- Write Review Form -->
+                                <form action="{% url 'hospital-profile' id=hospital.id %}" method="POST">
+                                    {% csrf_token %}
+                                   
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label>Your review</label>
+                                        <textarea id="review_desc" maxlength="100" class="form-control" name="review"></textarea>
+                                      
+                                      
+                                    </div>
+ 
+                                    <div class="submit-section" style="margin-bottom: 30px;">
+                                        <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
+                                    </div>
+                                </form>
+                                <!-- /Write Review Form -->
+                                
+                            </div>
+                            <!-- /Write Review -->
+                
+                        </div>
+                        <!-- /Reviews Content -->
+                        
+                      
+                    </div>
+                </div>
+            </div>
+
+           
+            <!-- /Doctor Details Tab -->
+
+        </div>
+    </div>		
+    <!-- /Page Content -->
+   
+</div>
+<!-- /Main Wrapper -->
+	  
+
+		{% endblock %}
+		{% include 'footer.html' %}

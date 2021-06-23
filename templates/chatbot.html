@@ -1,0 +1,70 @@
+{% load static %}
+{% include 'header.html' %}
+{% block content %}
+<div class="container" style="padding-top: 50px;">
+    <div class="chat-window">
+        <!-- Chat Right -->
+        <div class="chat-cont-right">
+            <div class="chat-header">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="user-name">ChatBot</div>
+                    </div>
+                </div>
+                <div class="chat-options">
+                    <h3>Powered By DocTalk</h3>
+                </div>
+            </div>
+            
+            <div class="chat-body">
+                <div class="chat-scroll">
+                    <ul class="list-unstyled">
+                        {% for message in messages %}
+                        {% if message.type == 'query' %}
+                        <li class="media sent">
+                            <div class="media-body">
+                                <div class="msg-box">
+                                    <div>
+                                        <p>{{message.message}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="media received">
+                            <div class="media-body">
+                                <div class="msg-box">
+                                    <div>
+                                        <p>{{message.message}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <form action="{% url 'chatbot' %}" method="POST">{% csrf_token %}
+            <div class="chat-footer">
+                <div class="input-group">
+                    <input type="text" class="input-msg-send form-control" placeholder="Type something" name="text">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn msg-send-btn"><i class="fab fa-telegram-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        <!-- /Chat Right -->
+        
+    </div>
+</div>
+</div>
+<!-- /Row -->
+
+</div>
+
+</div>		
+{% endblock %}
+{% include 'footer.html' %}

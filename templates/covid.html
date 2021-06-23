@@ -1,0 +1,51 @@
+{% load static %}
+{% include 'header.html' %}
+{% block content %}
+<div class="container" style="padding: 20px;">
+    <center><h3>Covid Prediction</h3></center>
+    <div style="padding:30px"><center><h4>{{msg}}</h4></center></div>
+    <form action="{% url 'covid-prediction' %}" method="POST">{% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6" style="padding: 20px;">
+                <label for="cough" class="label">Cough</label>
+                <select id="cough" name="cough" class="form-control">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </select>
+            </div>
+            <div class="col-lg-6" style="padding: 20px;">
+                <label class="label">Fever</label>
+                <select name="fever" class="form-control">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </select>
+            </div>
+            <div class="col-lg-6" style="padding: 20px;">
+                <label class="label">Sore Throat</label>
+                <select name="throat" class="form-control">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </select>
+            </div>
+            <div class="col-lg-6" style="padding: 20px;">
+                <label class="label">Shortness of Breath</label>
+                <select name="breath" class="form-control">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </select>
+            </div>
+            <div class="col-lg-6" style="padding: 20px;">
+                <label class="label">Headache</label>
+                <select name="headache" class="form-control">
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </select>
+            </div>
+        </div>
+        <div style="padding: 20px;">
+            <center><button type="submit" class="btn btn-warning">Check</button></center>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% include 'footer.html' %}

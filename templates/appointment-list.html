@@ -1,0 +1,57 @@
+{% load static %}
+{% include 'header.html' %}
+{% block content %}
+        <div class="main-wrapper">
+
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<center><h3 class="page-title">Appointments</h3></center>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Doctor Name/Hospital Name</th>
+													<th>Category</th>
+													<th>Apointment Date and Time</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for appointment in appointments %}
+												<tr>
+													{% if appointment.doctor %}
+													<td>{{appointment.doctor.name}}</td>
+													{% else %}
+													<td>{{appointment.hospital.name}}</td>
+													{% endif %}
+													<td>{{appointment.category}}</td>
+													<td>{{appointment.date}}<span class="text-primary d-block">{{appointment.time}}</span></td>
+													<td>{{appointment.status}}</td>
+												</tr>
+												{% endfor %}
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>			
+			</div>
+		
+        </div>
+		
+{% endblock %}
+{% include 'footer.html' %}

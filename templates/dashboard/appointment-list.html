@@ -1,0 +1,186 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>DocTalk -Partener Dashboard</title>
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'dashboard/assets/img/favicon.png' %}">
+
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/bootstrap.min.css' %}">
+
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/font-awesome.min.css' %}">
+		
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/feathericon.min.css' %}">
+		
+		<link rel="stylesheet" href="{% static 'dashboard/assets/plugins/morris/morris.css' %}">
+		
+        <link rel="stylesheet" href="{% static 'dashboard/assets/css/style.css' %}">
+
+    </head>
+    <body>
+	
+        <div class="main-wrapper">
+		
+            <div class="header">
+			
+                <div class="header-left">
+                    <a href="/" class="logo">
+						<img src="{% static 'dashboard/assets/img/doctalk_logo.png' %}" alt="Logo">
+					</a>
+					<a href="/" class="logo logo-small">
+						<img src="{% static 'dashboard/assets/img/doctalk_logo.png' %}" alt="Logo" width="30" height="30">
+					</a>
+                </div>
+				
+				<a href="javascript:void(0);" id="toggle_btn">
+					<i class="fe fe-text-align-left"></i>
+				</a>
+				
+				
+				<a class="mobile_btn" id="mobile_btn">
+					<i class="fa fa-bars"></i>
+				</a>
+
+				<ul class="nav user-menu">
+					
+					<!-- User Menu -->
+					<li class="nav-item dropdown has-arrow">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+							{% if profile.pic %}
+							<span class="user-img"><img class="rounded-circle" src="{{profile.pic.url}}" width="31" alt="Profile Pic"></span>
+							{% else %}
+							<span class="user-img"><i class="fa fa-user"></i></span>
+							{% endif %}
+						</a>
+						<div class="dropdown-menu">
+							<div class="user-header">
+								<div class="avatar avatar-sm">
+									{% if profile.pic %}
+									<img src="{{profile.pic.url}}" alt="User Image" class="avatar-img rounded-circle">
+									{% else %}
+									<i class="fa fa-user"></i>
+									{% endif %}
+								</div>
+								<div class="user-text">
+									<h6>{{ user.username }}</h6>
+									<p>Partener</p>
+								</div>
+							</div>
+							<a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+						</div>
+					</li>
+					<!-- /User Menu -->
+					
+				</ul>
+				<!-- /Header Right Menu -->
+				
+            </div>
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+					<div id="sidebar-menu" class="sidebar-menu">
+						<ul>
+							<li class="menu-title"> 
+								<span>Main</span>
+							</li>
+							<li> 
+								<a href="{% url 'dashboard' %}"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+							</li>
+							<li class="active"> 
+								<a href="{% url 'appointments' %}"><i class="fe fe-layout"></i> <span>Appointments</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'hospitals' %}"><i class="fe fe-users"></i> <span>Hospitals</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'doctor' %}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'ambulance' %}"><i class="fe fe-user"></i> <span>Ambulance</span></a>
+							</li>
+							<li> 
+								<a href="{% url 'medical-store' %}"><i class="fe fe-star-o"></i> <span>Medical Stores</span></a>
+							</li>
+						</ul>
+					</div>
+                </div>
+            </div>
+
+
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">Appointments</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+									<li class="breadcrumb-item active">Appointments</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Patient Name</th>
+													<th>Doctor Name/Hospital Name</th>
+													<th>Category</th>
+													<th>Apointment Date and Time</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for appointment in appointments %}
+												<tr>
+													<td>{{appointment.patient.username}}</td>
+													{% if appointment.doctor %}
+													<td>{{appointment.doctor.name}}</td>
+													{% else %}
+													<td>{{appointment.hospital.name}}</td>
+													{% endif %}
+													<td>{{appointment.category}}</td>
+													<td>{{appointment.date}}<span class="text-primary d-block">{{appointment.time}}</span></td>
+													<td>{{appointment.status}}</td>
+												</tr>
+												{% endfor %}
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>			
+			</div>
+		
+        </div>
+		
+	</div>
+
+	<script src="{% static 'dashboard/assets/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'dashboard/assets/js/popper.min.js' %}"></script>
+	<script src="{% static 'dashboard/assets/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'dashboard/assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>	
+	<script src="{% static 'dashboard/assets/plugins/raphael/raphael.min.js' %}"></script>    
+	<script src="{% static 'dashboard/assets/plugins/morris/morris.min.js' %}"></script>  
+	<script src="{% static 'dashboard/assets/js/chart.morris.js' %}"></script>
+	<script src="{% static 'dashboard/assets/js/script.js' %}"></script>
+
+	</body>
+	</html>
